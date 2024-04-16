@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:latihan1_jamil002/ui/bio.dart';
 import 'package:latihan1_jamil002/ui/galery.dart';
 import 'package:latihan1_jamil002/ui/home.dart';
+import 'package:latihan1_jamil002/ui/maps.dart';
 
 
 void main() {
@@ -21,6 +22,7 @@ class MainApp extends StatelessWidget {
         '/' : (context) => const Home(),
         '/bio' : (context) => const Bio(),
         '/galery' : (context) => const Galery(),
+        '/map' : (context) => const Maps(),
       },
     );
   }

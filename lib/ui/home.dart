@@ -44,18 +44,7 @@ class Header extends StatelessWidget {
         ],
       )
     );
-    // return Row(
-    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //   children: [
-    //     Text('Latihan Mobile App', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, ),),
-    //     IconButton(onPressed: () {
-    //       const snackBar = SnackBar(
-    //         content: Text('By Ahmad Mujamil - 2301011002'),
-    //       );
-    //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    //     }, icon: Icon(Icons.info))
-    //   ],
-    // );
+  
   }
 }
 
@@ -75,7 +64,14 @@ class Menu extends StatelessWidget {
             menuButton("Galery", '/galery',Icons.image, context)
           ],
         ),
-      
+      Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            menuButton("Lokasi",'/map',Icons.map,context),
+            menuButton("CRUD", '/crud',Icons.data_array, context)
+          ],
+        ),
       ],
     );
   }

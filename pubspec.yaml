@@ -9,7 +9,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_map: ^6.1.0
+  flutter_map_location_marker: ^8.0.8
   gallery_image_viewer: ^1.2.0
+  geolocator: ^11.0.0
+  latlong2: ^0.9.1
 
 dev_dependencies:
   flutter_test:
