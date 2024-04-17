@@ -13,17 +13,6 @@ class Maps extends StatefulWidget {
 
 class _MapsState extends State<Maps> {
 
-final _positionStream =
-      const LocationMarkerDataStreamFactory().fromGeolocatorPositionStream(
-    stream: Geolocator.getPositionStream(
-      locationSettings: const LocationSettings(
-        accuracy: LocationAccuracy.medium,
-        distanceFilter: 50,
-        timeLimit: Duration(minutes: 1),
-      ),
-    ),
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,11 +22,11 @@ final _positionStream =
         
         ),
         body: FlutterMap(
-        options: const MapOptions(
-          initialCenter: LatLng(-8.5911597,116.1152131),
-          initialZoom: 15,
-          minZoom: 10,
-          maxZoom: 19,
+          options: const MapOptions(
+            initialCenter: LatLng(-8.5911597,116.1152131),
+            initialZoom: 15,
+            minZoom: 10,
+            maxZoom: 19,
         ),
         children: [
           TileLayer(
@@ -45,7 +34,7 @@ final _positionStream =
             maxZoom: 19,
           ),
           CurrentLocationLayer(
-            positionStream: _positionStream,
+            alignPositionOnUpdate: AlignOnUpdate.always,
             style: LocationMarkerStyle(
               marker: const DefaultLocationMarker(
                 color: Colors.green,

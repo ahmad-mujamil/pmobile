@@ -20,9 +20,11 @@ class MainApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/' : (context) => const Home(),
+        '/home' : (context) => const Home(),
         '/bio' : (context) => const Bio(),
         '/galery' : (context) => const Galery(),
         '/map' : (context) => const Maps(),
+        '/crud' : (context) => const Maps(),
       },
     );
   }

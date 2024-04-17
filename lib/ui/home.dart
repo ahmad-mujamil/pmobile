@@ -72,6 +72,14 @@ class Menu extends StatelessWidget {
             menuButton("CRUD", '/crud',Icons.data_array, context)
           ],
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            menuButton("Login",'/login',Icons.login,context),
+          
+          ],
+        ),
       ],
     );
   }

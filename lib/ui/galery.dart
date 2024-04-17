@@ -23,7 +23,7 @@ class _GaleryState extends State<Galery> {
         appBar: AppBar(
           title: Text('Galery Foto',style: TextStyle(fontWeight: FontWeight.bold),),
           centerTitle: false,
-        
+
         ),
         body: GalleryImageView(
           listImage: _imageProviders,
