@@ -12,8 +12,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(10),
+      body: Container(  
         child: const Column(
           children: [
             Expanded(flex : 2, child:  Header()),
@@ -34,13 +33,13 @@ class Header extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Latihan Mobile App', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold,color: Colors.white ),),
+          const Text('Latihan Mobile App', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold,color: Colors.white ),),
           IconButton(onPressed: () {
             const snackBar = SnackBar(
               content: Text('By Ahmad Mujamil - 2301011002'),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }, icon: Icon(Icons.info, color: Colors.white,))
+          }, icon: const Icon(Icons.info, color: Colors.white,))
         ],
       )
     );
