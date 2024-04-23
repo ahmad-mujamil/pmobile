@@ -1,13 +1,47 @@
-import 'package:flutter/material.dart';
-import 'package:latihan1_jamil002/ui/component.dart';
+import 'dart:convert';
 
-class Bio extends StatelessWidget {
-  const Bio({Key? key}) : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:latihan1_jamil002/db/database_helper.dart';
+import 'package:latihan1_jamil002/models/user.dart';
+import 'package:latihan1_jamil002/ui/component.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
+class Bio extends StatefulWidget {
+  const Bio({super.key});
+
+  @override
+  State<Bio> createState() => _BioState();
+}
+
+class _BioState extends State<Bio> {
+
+  User? authUser;
+
+  DatabaseHelper db = DatabaseHelper();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAuth();
+    
+  }
+
+  getAuth() async {
+    final SharedPreferences sessionLogin = await SharedPreferences.getInstance();
+    db.getUserByNim(sessionLogin.getString("auth")!).then((value) {
+      authUser = value[0];
+      setState(() {
+        
+      });
+    });
+  
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: (authUser==null) ? SizedBox() : Column(
         children: [
           const Expanded(flex: 2, child: HeaderBio()),
           Expanded(
@@ -17,7 +51,7 @@ class Bio extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    "Ahmad Mujamil",
+                    authUser!.nama,
                     style: Theme.of(context)
                         .textTheme
                         .headline6
@@ -31,7 +65,7 @@ class Bio extends StatelessWidget {
                         onPressed: () {},
                         heroTag: 'nim',
                         elevation: 0,
-                        label: const Text("NIM : 2301011002",style: TextStyle(fontWeight: FontWeight.bold),),
+                        label: Text("NIM : ${authUser!.nim}",style: TextStyle(fontWeight: FontWeight.bold),),
                       ),
                       const SizedBox(width: 16.0),
                       FloatingActionButton.extended(
@@ -39,7 +73,7 @@ class Bio extends StatelessWidget {
                         heroTag: 'jurusan',
                         elevation: 0,
                         backgroundColor: Colors.green,
-                        label: const Text("Ilmu Komputer",style: TextStyle(fontWeight: FontWeight.bold),),
+                        label: Text(authUser!.jurusan,style: TextStyle(fontWeight: FontWeight.bold),),
                     
                       ),
                     ],
@@ -55,6 +89,7 @@ class Bio extends StatelessWidget {
     );
   }
 }
+
 
 class _ProfileInfoRow extends StatelessWidget {
   const _ProfileInfoRow({Key? key}) : super(key: key);
