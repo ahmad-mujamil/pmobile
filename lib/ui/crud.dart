@@ -15,6 +15,7 @@ class _CrudState extends State<Crud> {
 
   getUser() {
     db.getUsers().then((value) {
+        print(value);
         dataUsers = value;
         setState(() {
           
@@ -25,6 +26,7 @@ class _CrudState extends State<Crud> {
   TextEditingController textNim = TextEditingController();
   TextEditingController textNama = TextEditingController();
   TextEditingController textJurusan = TextEditingController();
+  TextEditingController textPassword = TextEditingController();
 
   List<User> dataUsers = [];
   DatabaseHelper db = DatabaseHelper();
@@ -39,6 +41,7 @@ class _CrudState extends State<Crud> {
     textJurusan.text = "";
     textNama.text = "";
     textNim.text = "";
+    textPassword.text = "";
   }
 
   formDialog (BuildContext context, int tipe, int? userId) async {
@@ -58,33 +61,40 @@ class _CrudState extends State<Crud> {
                     TextFormField(
                       controller: textNim,
                       decoration:
-                          InputDecoration(hintText: "NIM"),
+                          const InputDecoration(hintText: "NIM"),
                     ),
                     TextFormField(
                       controller: textNama,
                       decoration:
-                          InputDecoration(hintText: "Nama"),
+                          const InputDecoration(hintText: "Nama"),
                     ),
                     TextFormField(
                       controller: textJurusan,
                       decoration:
-                          InputDecoration(hintText: "Jurusan"),
+                          const InputDecoration(hintText: "Jurusan"),
+                    ),
+                    TextFormField(
+                      obscureText: true,
+                      controller: textPassword,
+                      decoration:
+                          const InputDecoration(hintText: "Password"),
                     ),
                   ],
                 )),
             title: Text((tipe== 0 ? 'Tambah Data' : 'Edit Data')),
             actions: <Widget>[
               InkWell(
-                child: Text("Cancel",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),),
+                child: const Text("Cancel",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),),
                 onTap: () {
                   resetText();
                   Navigator.pop(context);
                 },
               ),
               InkWell(
-                child: Text((tipe== 0 ? 'Simpan Data' : 'Update Data'),style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),),
+                child: Text((tipe== 0 ? 'Simpan Data' : 'Update Data'),
+                  style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),),
                 onTap: () {
-                  User user = User(nim: textNim.text, nama: textNama.text, jurusan: textJurusan.text);
+                  User user = User(nim: textNim.text, nama: textNama.text, jurusan: textJurusan.text,password: textPassword.text);
                   if(tipe==0) {
               
                     db.createUser(user).then((value) {
@@ -116,7 +126,7 @@ class _CrudState extends State<Crud> {
             const Expanded(flex : 2, child: Header() ),
             Expanded(flex : 3, child: Column( 
               children: [
-                Text('Data User', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,)),
+                const Text('Data User', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,)),
                 Expanded(
                   child: ListView.builder(
                     itemCount: dataUsers.length,
@@ -125,17 +135,18 @@ class _CrudState extends State<Crud> {
 
                           title: Text(dataUsers[index].nama),
                           subtitle: Text(dataUsers[index].nim),
-                          leading: Icon(Icons.person),
+                          leading: const Icon(Icons.person),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              IconButton(icon : Icon(Icons.edit), onPressed: () {
+                              IconButton(icon : const Icon(Icons.edit), onPressed: () {
                                 textNim.text = dataUsers[index].nim;
                                 textNama.text = dataUsers[index].nama;
                                 textJurusan.text = dataUsers[index].jurusan;
+                                textPassword.text = dataUsers[index].password;
                                 formDialog(context,1,dataUsers[index].id);
                               }),
-                              IconButton(icon: Icon(Icons.delete),
+                              IconButton(icon: const Icon(Icons.delete),
                                 onPressed: () {
                                 db.deleteUser(dataUsers[index]).then((value) => getUser()) ;
                                 resetText();

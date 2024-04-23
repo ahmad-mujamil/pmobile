@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:latihan1_jamil002/db/database_service.dart';
 import 'package:latihan1_jamil002/models/user.dart';
 import 'package:sqflite/sqflite.dart';
@@ -12,7 +11,8 @@ class DatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nim TEXT DEFAULT NULL,
         nama TEXT DEFAULT NULL,
-        jurusan TEXT DEFAULT NULL
+        jurusan TEXT DEFAULT NULL,
+        password TEXT DEFAULT NULL
       )
     ''');
   
@@ -44,6 +44,13 @@ class DatabaseHelper {
     final database = await DatabaseService().database;
     final users = await database
         .rawQuery('''SELECT * FROM $tableUser WHERE nim = $nim ''');
+    return users.map((data) => User.fromJson(data)).toList();
+  }
+
+  Future<List<User>> getUserByNimPassword(String nim, String password) async {
+    final database = await DatabaseService().database;
+    final users = await database
+        .rawQuery('''SELECT * FROM $tableUser WHERE nim = $nim and password = $password''');
     return users.map((data) => User.fromJson(data)).toList();
   }
 }

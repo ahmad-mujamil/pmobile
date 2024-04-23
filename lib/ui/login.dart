@@ -1,9 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:latihan1_jamil002/db/database_helper.dart';
-import 'package:latihan1_jamil002/models/user.dart';
 import 'package:latihan1_jamil002/ui/component.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,6 +15,7 @@ class _LoginState extends State<Login> {
 
 
   TextEditingController textNim = TextEditingController();
+  TextEditingController textPassword = TextEditingController();
 
   DatabaseHelper db = DatabaseHelper();
   @override
@@ -28,9 +26,10 @@ class _LoginState extends State<Login> {
   }
   resetText() {
     textNim.text = "";
+    textPassword.text = "";
   }
   
-
+  
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,14 @@ class _LoginState extends State<Login> {
                   TextFormField(
                     controller: textNim,
                     decoration:
-                        InputDecoration(hintText: "Login Menggunakan NIM"),
+                        const InputDecoration(hintText: "NIM"),
+                  ),
+                  const SizedBox(height: 10,),
+                  TextFormField(
+                    obscureText: true,
+                    controller: textPassword,
+                    decoration:
+                        const InputDecoration(hintText: "Password"),
                   ),
                   const SizedBox(height: 10,),
                   SizedBox(
