@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:latihan1_jamil002/api.dart';
 import 'package:latihan1_jamil002/db/database_helper.dart';
 import 'package:latihan1_jamil002/ui/component.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Registrasi extends StatefulWidget {
   const Registrasi({super.key});
@@ -80,8 +81,12 @@ class _RegistrasiState extends State<Registrasi> {
                                     nama: textNama.text,
                                     email: textEmail.text,
                                     password: textPassword.text)
-                                .then((value) {
+                                .then((value) async {
                               //handle success
+                              final SharedPreferences sessionLogin =
+                                  await SharedPreferences.getInstance();
+                              sessionLogin.setString("nim", value['nim']);
+                              sessionLogin.setString("token", value['token']);
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
                                 content: Text("Registrasi Berhasil"),

@@ -8,7 +8,7 @@ import 'package:dio/dio.dart' as dios;
 
 class Api {
   Client apiClient = Client();
-  final String apiUrl = 'http://api-pmobile.test/api/v1'; //dev
+  final String apiUrl = 'http://195.35.23.79:85/api/v1'; //dev
 
   Future<Map<String, dynamic>> registrasi(
       {required String nim,
