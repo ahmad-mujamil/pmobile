@@ -11,14 +11,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(  
-        child: const Column(
-          children: [
-            Expanded(flex : 2, child:  Header()),
-            Expanded(flex : 3, child:  Menu()),
-          ],
-        ),
+    return const Scaffold(
+      body: Column(
+        children: [
+          Expanded(flex: 2, child: Header()),
+          Expanded(flex: 3, child: Menu()),
+        ],
       ),
     );
   }
@@ -29,21 +27,27 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return headerTemplate(
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text('Latihan Mobile App', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold,color: Colors.white ),),
-          IconButton(onPressed: () {
-            const snackBar = SnackBar(
-              content: Text('By Ahmad Mujamil - 2301011002'),
-            );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }, icon: const Icon(Icons.info, color: Colors.white,))
-        ],
-      )
-    );
-  
+    return headerTemplate(Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Text(
+          'Latihan Mobile App',
+          style: TextStyle(
+              fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        IconButton(
+            onPressed: () {
+              const snackBar = SnackBar(
+                content: Text('By Ahmad Mujamil - 2301011002'),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            },
+            icon: const Icon(
+              Icons.info,
+              color: Colors.white,
+            ))
+      ],
+    ));
   }
 }
 
@@ -54,34 +58,33 @@ class Menu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 50,),
+        const SizedBox(
+          height: 50,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            menuButton("Bio Data",'/bio',Icons.person,context),
-            menuButton("Galery", '/galery',Icons.image, context)
-          ],
-        ),
-      Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            menuButton("Lokasi",'/map',Icons.map,context),
-            menuButton("CRUD", '/crud',Icons.data_array, context)
+            menuButton("Bio Data", '/bio', Icons.person, context),
+            menuButton("Galery", '/galery', Icons.image, context)
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            menuButton("Login",'/login',Icons.login,context),
-          
+            menuButton("Lokasi", '/map', Icons.map, context),
+            menuButton("CRUD", '/crud', Icons.data_array, context)
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            menuButton("Login", '/login', Icons.login, context),
           ],
         ),
       ],
     );
   }
 }
- 
- 

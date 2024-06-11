@@ -2,27 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:latihan1_jamil002/api.dart';
 import 'package:latihan1_jamil002/db/database_helper.dart';
 import 'package:latihan1_jamil002/ui/component.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Registrasi extends StatefulWidget {
+  const Registrasi({super.key});
   @override
-  State<Login> createState() => _LoginState();
+  State<Registrasi> createState() => _RegistrasiState();
 }
 
-class _LoginState extends State<Login> {
+class _RegistrasiState extends State<Registrasi> {
   TextEditingController textNim = TextEditingController();
+  TextEditingController textNama = TextEditingController();
+  TextEditingController textEmail = TextEditingController();
   TextEditingController textPassword = TextEditingController();
 
   DatabaseHelper db = DatabaseHelper();
   @override
   void initState() {
     super.initState();
-  }
-
-  resetText() {
-    textNim.text = "";
-    textPassword.text = "";
   }
 
   @override
@@ -45,6 +41,20 @@ class _LoginState extends State<Login> {
                       height: 10,
                     ),
                     TextFormField(
+                      controller: textNama,
+                      decoration: const InputDecoration(hintText: "Nama"),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      controller: textEmail,
+                      decoration: const InputDecoration(hintText: "Email"),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
                       obscureText: true,
                       controller: textPassword,
                       decoration: const InputDecoration(hintText: "Password"),
@@ -57,29 +67,27 @@ class _LoginState extends State<Login> {
                       child: OutlinedButton(
                         onPressed: () {
                           if (textNim.text.isEmpty ||
-                              textPassword.text.isEmpty) {
-                            const snackBar = SnackBar(
-                              content: Text('Data Tidak Boleh Kosong'),
-                            );
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
+                              textPassword.text.isEmpty ||
+                              textEmail.text.isEmpty ||
+                              textNama.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text("Semua field harus diisi")));
                           } else {
                             Api()
-                                .login(
+                                .registrasi(
                                     nim: textNim.text,
+                                    nama: textNama.text,
+                                    email: textEmail.text,
                                     password: textPassword.text)
-                                .then((value) async {
-                              final SharedPreferences sessionLogin =
-                                  await SharedPreferences.getInstance();
-                              sessionLogin.setString("nim", value['nim']);
-                              sessionLogin.setString("token", value['token']);
-                              if (!context.mounted) return;
+                                .then((value) {
+                              //handle success
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
-                                content: Text("Login Berhasil"),
+                                content: Text("Registrasi Berhasil"),
                                 backgroundColor: Colors.green,
                               ));
-                              Navigator.pushNamed(context, '/home');
+                              Navigator.pushReplacementNamed(context, '/home');
                             }).catchError((error) {
                               //handle error
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -92,32 +100,16 @@ class _LoginState extends State<Login> {
                               );
                             });
                           }
-                          // db.getUserByNim(textNim.text.trim()).then(
-                          //   (value) async {
-                          //     if (value.isNotEmpty) {
-                          //       final SharedPreferences sessionLogin =
-                          //           await SharedPreferences.getInstance();
-                          //       sessionLogin.setString("auth", value[0].nim);
-                          //       Navigator.pushNamed(context, '/home');
-                          //     } else {
-                          //       const snackBar = SnackBar(
-                          //         content: Text('NIM Tidak Ditemukan'),
-                          //       );
-                          //       ScaffoldMessenger.of(context)
-                          //           .showSnackBar(snackBar);
-                          //     }
-                          //   },
-                          // );
                         },
-                        child: const Text("Login"),
+                        child: const Text("Submit"),
                       ),
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, '/registrasi');
+                        Navigator.pushNamed(context, '/login');
                       },
                       child: const Text(
-                        "Registrasi Disini",
+                        "Login Disini",
                         style: TextStyle(
                           color: Colors.blue,
                           decoration: TextDecoration.underline,
@@ -145,16 +137,18 @@ class Header extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text(
-              'Login',
+              'Registrasi',
               style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/home');
+                },
                 icon: const Icon(
-                  Icons.login,
+                  Icons.home,
                   color: Colors.white,
                 ))
           ],
